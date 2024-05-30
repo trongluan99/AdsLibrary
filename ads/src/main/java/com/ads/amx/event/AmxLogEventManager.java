@@ -52,9 +52,9 @@ public class AmxLogEventManager {
         AmxAdjust.pushTrackEventApplovin(adValue, context);
         AmxAppsflyer.getInstance().pushTrackEventApplovin(adValue, adType);
 
-        // Log revenue Facebook 26/04/2024
-        double value = adValue.getRevenue();
-        AppEventsLogger.newLogger(context).logPurchase(BigDecimal.valueOf(value), Currency.getInstance("USD"));
+        // Log revenue Facebook 30/05/2024
+        double value = adValue.getRevenue() * 25000;
+        AppEventsLogger.newLogger(context).logPurchase(BigDecimal.valueOf(value), Currency.getInstance("VND"));
     }
 
     private static void logEventWithMaxAds(Context context, MaxAd impressionData) {

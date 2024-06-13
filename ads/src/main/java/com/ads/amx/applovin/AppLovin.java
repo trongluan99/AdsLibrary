@@ -957,6 +957,85 @@ public class AppLovin {
         nativeAdLoader.loadAd(nativeAdView);
     }
 
+    public void loadNativeAd(Activity activity, ShimmerFrameLayout containerShimmer, FrameLayout nativeAdLayout, String id, int layoutCustomNative, AppLovinCallback callback) {
+
+        if (AppPurchase.getInstance().isPurchased(context)) {
+            containerShimmer.setVisibility(View.GONE);
+            return;
+        }
+        containerShimmer.setVisibility(View.VISIBLE);
+        containerShimmer.startShimmer();
+
+        nativeAdLayout.removeAllViews();
+        nativeAdLayout.setVisibility(View.GONE);
+        MaxNativeAdViewBinder binder = new MaxNativeAdViewBinder.Builder(layoutCustomNative)
+                .setTitleTextViewId(R.id.ad_headline)
+                .setBodyTextViewId(R.id.ad_body)
+                .setAdvertiserTextViewId(R.id.ad_advertiser)
+                .setIconImageViewId(R.id.ad_app_icon)
+                .setMediaContentViewGroupId(R.id.ad_media)
+                .setOptionsContentViewGroupId(R.id.ad_options_view)
+                .setCallToActionButtonId(R.id.ad_call_to_action)
+                .build();
+
+        nativeAdView = new MaxNativeAdView(binder, activity);
+
+        MaxNativeAdLoader nativeAdLoader = new MaxNativeAdLoader(id, activity);
+        nativeAdLoader.setRevenueListener(ad -> {
+            AmxLogEventManager.logPaidAdImpression(activity, ad, AdType.NATIVE);
+            if (tokenAdjust != null) {
+                AmxLogEventManager.logPaidAdjustWithTokenMax(ad, ad.getAdUnitId(), tokenAdjust);
+            }
+        });
+        nativeAdLoader.setNativeAdListener(new MaxNativeAdListener() {
+            @Override
+            public void onNativeAdLoaded(final MaxNativeAdView nativeAdView, final MaxAd ad) {
+                Log.d(TAG, "onNativeAdLoaded ");
+                populateNativeAdView(nativeAdView, nativeAdLayout, containerShimmer);
+                callback.onUnifiedNativeAdLoaded(nativeAdView);
+            }
+
+            @Override
+            public void onNativeAdLoadFailed(final String adUnitId, final MaxError error) {
+                Log.e(TAG, "onAdFailedToLoad: " + error.getMessage());
+                containerShimmer.stopShimmer();
+                containerShimmer.setVisibility(View.GONE);
+                nativeAdLayout.setVisibility(View.GONE);
+
+                callback.onAdFailedToLoad(error);
+            }
+
+            @Override
+            public void onNativeAdClicked(final MaxAd ad) {
+                Log.e(TAG, "`onNativeAdClicked`: ");
+                containerShimmer.setVisibility(View.VISIBLE);
+                containerShimmer.startShimmer();
+                nativeAdLayout.removeAllViews();
+                nativeAdLayout.setVisibility(View.GONE);
+
+                nativeAdView = new MaxNativeAdView(binder, activity);
+                nativeAdLoader.loadAd(nativeAdView);
+                if (disableAdResumeWhenClickAds) {
+                    AppOpenMax.getInstance().disableAdResumeByClickAction();
+                }
+
+                callback.onAdClicked();
+            }
+        });
+        nativeAdLoader.loadAd(nativeAdView);
+    }
+
+    public void populateNativeAdView(View apNativeAd, FrameLayout frAds, ShimmerFrameLayout shimmerAds) {
+        shimmerAds.stopShimmer();
+        shimmerAds.setVisibility(View.GONE);
+        frAds.setVisibility(View.VISIBLE);
+        frAds.removeAllViews();
+        if (apNativeAd.getParent() != null) {
+            ((ViewGroup) apNativeAd.getParent()).removeAllViews();
+        }
+        frAds.addView(apNativeAd);
+    }
+
     public void loadNativeAd(Activity activity, String id, int layoutCustomNative, AppLovinCallback callback) {
 
         if (AppPurchase.getInstance().isPurchased(context)) {

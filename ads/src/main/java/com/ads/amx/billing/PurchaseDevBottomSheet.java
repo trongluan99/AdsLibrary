@@ -7,9 +7,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.ads.amx.BuildConfig;
 import com.ads.amx.R;
 import com.ads.amx.funtion.PurchaseListener;
+import com.ads.amx.util.AppUtil;
 import com.android.billingclient.api.ProductDetails;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -42,7 +42,7 @@ public class PurchaseDevBottomSheet extends BottomSheetDialog {
         txtPrice = findViewById(R.id.txtPrice);
         txtContinuePurchase = findViewById(R.id.txtContinuePurchase);
         if (productDetails == null) {
-            if (BuildConfig.DEBUG) {
+            if (AppUtil.VARIANT_DEV) {
                 txtContinuePurchase.setOnClickListener(v -> {
                     AppPurchase.getInstance().setPurchase(true);
                     if (purchaseListener != null) {

@@ -1,6 +1,7 @@
 package com.amx.module;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,24 +22,25 @@ public class SplashActivity extends AppCompatActivity {
         AppPurchase.getInstance().setPurchaseListener(new PurchaseListener() {
             @Override
             public void onProductPurchased(String productId, String transactionDetails) {
-
+                Log.d("LuanDev", "onProductPurchased: ");
+                Toast.makeText(SplashActivity.this, "OK", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void displayErrorMessage(String errorMsg) {
-
+                Log.d("LuanDev", "displayErrorMessage: ");
             }
 
             @Override
             public void onUserCancelBilling() {
-
+                Log.d("LuanDev", "onUserCancelBilling: ");
             }
         });
 
         findViewById(R.id.btn_iap).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppPurchase.getInstance().purchase(SplashActivity.this, "android.test.purchased");
+                AppPurchase.getInstance().subscribe(SplashActivity.this, "android.test.purchased");
             }
         });
 

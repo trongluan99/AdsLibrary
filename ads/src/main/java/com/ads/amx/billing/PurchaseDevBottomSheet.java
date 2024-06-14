@@ -50,8 +50,10 @@ public class PurchaseDevBottomSheet extends BottomSheetDialog {
                     }
                     dismiss();
                 });
-            }else{
-                dismiss();
+            } else {
+                txtContinuePurchase.setOnClickListener(v -> {
+                    dismiss();
+                });
             }
         } else {
             txtTitle.setText(productDetails.getTitle());

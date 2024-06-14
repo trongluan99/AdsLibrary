@@ -1,11 +1,15 @@
 package com.amx.module;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ads.amx.admob.AppOpenManager;
+import com.ads.amx.billing.AppPurchase;
 import com.ads.amx.funtion.AdCallback;
+import com.ads.amx.funtion.PurchaseListener;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -14,13 +18,43 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        AppOpenManager.getInstance().loadAdOpenSplash2id(SplashActivity.class, this,
-                "ca-app-pub-3940256099942544/9257395921",
-                "ca-app-pub-3940256099942544/9257395921", 25000, new AdCallback() {
-                    @Override
-                    public void onNextAction() {
-                        super.onNextAction();
-                    }
-                });
+        AppPurchase.getInstance().setPurchaseListener(new PurchaseListener() {
+            @Override
+            public void onProductPurchased(String productId, String transactionDetails) {
+
+            }
+
+            @Override
+            public void displayErrorMessage(String errorMsg) {
+
+            }
+
+            @Override
+            public void onUserCancelBilling() {
+
+            }
+        });
+
+        findViewById(R.id.btn_iap).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppPurchase.getInstance().purchase(SplashActivity.this, "android.test.purchased");
+            }
+        });
+
+        findViewById(R.id.btn_ads).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppOpenManager.getInstance().loadAdOpenSplash2id(SplashActivity.class, SplashActivity.this,
+                        "ca-app-pub-3940256099942544/9257395921",
+                        "ca-app-pub-3940256099942544/9257395921", 25000, new AdCallback() {
+                            @Override
+                            public void onNextAction() {
+                                super.onNextAction();
+                                Toast.makeText(SplashActivity.this, "Ads", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
     }
 }

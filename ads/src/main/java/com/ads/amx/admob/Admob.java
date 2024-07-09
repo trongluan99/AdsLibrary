@@ -59,11 +59,11 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.OnUserEarnedRewardListener;
 import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.gms.ads.VideoOptions;
-import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.initialization.AdapterStatus;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.nativead.NativeAd;
+import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.nativead.NativeAdView;
 import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
@@ -82,7 +82,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Admob {
-    private static final String TAG = "GamStudio";
+    private static final String TAG = "AmxStudio";
     private static Admob instance;
     private int currentClicked = 0;
     private String nativeId;
@@ -343,7 +343,7 @@ public class Admob {
     public void getInterstitialAds(Context context, ArrayList<String> listID, AdCallback adCallback) {
         for (String id : listID) {
             if (Arrays.asList(context.getResources().getStringArray(R.array.list_id_test)).contains(id)) {
-                showTestIdAlert(context, INTERS_ADS, id);
+                /*showTestIdAlert(context, INTERS_ADS, id);*/
             }
             if (AdmobHelper.getNumClickAdsPerDay(context, id) >= maxClickAds) {
                 adCallback.onInterstitialLoad(null);
@@ -1238,7 +1238,7 @@ public class Admob {
      */
     public void getInterstitialAds(Context context, String id, AdCallback adCallback) {
         if (Arrays.asList(context.getResources().getStringArray(R.array.list_id_test)).contains(id)) {
-            showTestIdAlert(context, INTERS_ADS, id);
+            /*showTestIdAlert(context, INTERS_ADS, id);*/
         }
         if (AppPurchase.getInstance().isPurchased(context) || AdmobHelper.getNumClickAdsPerDay(context, id) >= maxClickAds) {
             adCallback.onInterstitialLoad(null);
@@ -1676,7 +1676,7 @@ public class Admob {
                             final FrameLayout adContainer, final ShimmerFrameLayout containerShimmer,
                             final AdCallback callback, Boolean useInlineAdaptive, String inlineStyle) {
         if (Arrays.asList(mActivity.getResources().getStringArray(R.array.list_id_test)).contains(id)) {
-            showTestIdAlert(mActivity, BANNER_ADS, id);
+            /*showTestIdAlert(mActivity, BANNER_ADS, id);*/
         }
         if (AppPurchase.getInstance().isPurchased(mActivity)) {
             containerShimmer.setVisibility(View.GONE);
@@ -1768,7 +1768,7 @@ public class Admob {
     private void loadCollapsibleBanner(final Activity mActivity, String id, String gravity, final FrameLayout adContainer,
                                        final ShimmerFrameLayout containerShimmer, final AdCallback callback) {
         if (Arrays.asList(mActivity.getResources().getStringArray(R.array.list_id_test)).contains(id)) {
-            showTestIdAlert(mActivity, BANNER_ADS, id);
+            /*showTestIdAlert(mActivity, BANNER_ADS, id);*/
         }
         if (AppPurchase.getInstance().isPurchased(mActivity)) {
             containerShimmer.setVisibility(View.GONE);
@@ -1841,7 +1841,7 @@ public class Admob {
     private void loadCollapsibleAutoSizeMedium(final Activity mActivity, String id, String gravity, AdSize sizeBanner, final FrameLayout adContainer,
                                                final ShimmerFrameLayout containerShimmer, final AdCallback callback) {
         if (Arrays.asList(mActivity.getResources().getStringArray(R.array.list_id_test)).contains(id)) {
-            showTestIdAlert(mActivity, BANNER_ADS, id);
+            /*showTestIdAlert(mActivity, BANNER_ADS, id);*/
         }
         if (AppPurchase.getInstance().isPurchased(mActivity)) {
             containerShimmer.setVisibility(View.GONE);
@@ -1998,7 +1998,7 @@ public class Admob {
 
     public void loadNativeAd(Context context, String id, final AdCallback callback) {
         if (Arrays.asList(context.getResources().getStringArray(R.array.list_id_test)).contains(id)) {
-            showTestIdAlert(context, NATIVE_ADS, id);
+            /*showTestIdAlert(context, NATIVE_ADS, id);*/
         }
         if (AppPurchase.getInstance().isPurchased(context)) {
             return;
@@ -2064,7 +2064,7 @@ public class Admob {
 
     public void loadNativeAds(Context context, String id, final AdCallback callback, int countAd) {
         if (Arrays.asList(context.getResources().getStringArray(R.array.list_id_test)).contains(id)) {
-            showTestIdAlert(context, NATIVE_ADS, id);
+            /*showTestIdAlert(context, NATIVE_ADS, id);*/
         }
         if (AppPurchase.getInstance().isPurchased(context)) {
             callback.onAdClosed();
@@ -2122,7 +2122,7 @@ public class Admob {
 
     private void loadNative(final Context context, final ShimmerFrameLayout containerShimmer, final FrameLayout frameLayout, final String id, final int layout) {
         if (Arrays.asList(context.getResources().getStringArray(R.array.list_id_test)).contains(id)) {
-            showTestIdAlert(context, NATIVE_ADS, id);
+            /*showTestIdAlert(context, NATIVE_ADS, id);*/
         }
         if (AppPurchase.getInstance().isPurchased(context)) {
             containerShimmer.setVisibility(View.GONE);
@@ -2195,7 +2195,7 @@ public class Admob {
 
     private void loadNative(final Context context, final ShimmerFrameLayout containerShimmer, final FrameLayout frameLayout, final String id, final int layout, final AdCallback callback) {
         if (Arrays.asList(context.getResources().getStringArray(R.array.list_id_test)).contains(id)) {
-            showTestIdAlert(context, NATIVE_ADS, id);
+            /*showTestIdAlert(context, NATIVE_ADS, id);*/
         }
         if (AppPurchase.getInstance().isPurchased(context)) {
             containerShimmer.setVisibility(View.GONE);
@@ -2273,7 +2273,7 @@ public class Admob {
 
     public void loadNativeAdsFullScreen(Context context, String id, final AdCallback callback) {
         if (Arrays.asList(context.getResources().getStringArray(R.array.list_id_test)).contains(id)) {
-            showTestIdAlert(context, NATIVE_ADS, id);
+            /*showTestIdAlert(context, NATIVE_ADS, id);*/
         }
         if (AppPurchase.getInstance().isPurchased(context)) {
             return;
@@ -2331,7 +2331,7 @@ public class Admob {
 
     public void loadNativeAdsFullScreen(final Context context, final ShimmerFrameLayout containerShimmer, final FrameLayout frameLayout, final String id, final int layout, final AdCallback callback) {
         if (Arrays.asList(context.getResources().getStringArray(R.array.list_id_test)).contains(id)) {
-            showTestIdAlert(context, NATIVE_ADS, id);
+            /*showTestIdAlert(context, NATIVE_ADS, id);*/
         }
         if (AppPurchase.getInstance().isPurchased(context)) {
             containerShimmer.setVisibility(View.GONE);
@@ -2432,7 +2432,6 @@ public class Admob {
         adView.setIconView(adView.findViewById(R.id.ad_app_icon));
         adView.setPriceView(adView.findViewById(R.id.ad_price));
         adView.setStarRatingView(adView.findViewById(R.id.ad_stars));
-        /*adView.setStoreView(adView.findViewById(R.id.ad_store));*/
         adView.setAdvertiserView(adView.findViewById(R.id.ad_advertiser));
 
         // The headline is guaranteed to be in every UnifiedNativeAd.
@@ -2529,7 +2528,7 @@ public class Admob {
      */
     public void initRewardAds(Context context, String id) {
         if (Arrays.asList(context.getResources().getStringArray(R.array.list_id_test)).contains(id)) {
-            showTestIdAlert(context, REWARD_ADS, id);
+            /*showTestIdAlert(context, REWARD_ADS, id);*/
         }
         if (AppPurchase.getInstance().isPurchased(context)) {
             return;
@@ -2572,7 +2571,7 @@ public class Admob {
      */
     public void initRewardAds(Context context, String id, AdCallback callback) {
         if (Arrays.asList(context.getResources().getStringArray(R.array.list_id_test)).contains(id)) {
-            showTestIdAlert(context, REWARD_ADS, id);
+            /*showTestIdAlert(context, REWARD_ADS, id);*/
         }
         if (AppPurchase.getInstance().isPurchased(context)) {
             return;
@@ -2618,7 +2617,7 @@ public class Admob {
      */
     public void getRewardInterstitial(Context context, String id, AdCallback callback) {
         if (Arrays.asList(context.getResources().getStringArray(R.array.list_id_test)).contains(id)) {
-            showTestIdAlert(context, REWARD_ADS, id);
+            /*showTestIdAlert(context, REWARD_ADS, id);*/
         }
         if (AppPurchase.getInstance().isPurchased(context)) {
             return;
@@ -2879,47 +2878,6 @@ public class Admob {
             e.printStackTrace();
         }
         return "";
-    }
-
-    private void showTestIdAlert(Context context, int typeAds, String id) {
-        String content = "";
-        switch (typeAds) {
-            case BANNER_ADS:
-                content = "Banner Ads: ";
-                break;
-            case INTERS_ADS:
-                content = "Interstitial Ads: ";
-                break;
-            case REWARD_ADS:
-                content = "Rewarded Ads: ";
-                break;
-            case NATIVE_ADS:
-                content = "Native Ads: ";
-                break;
-        }
-        content += id;
-        Notification notification = new NotificationCompat.Builder(context, "warning_ads")
-                .setContentTitle("Found test ad id")
-                .setContentText(content)
-                .setSmallIcon(R.drawable.ic_warning)
-                .build();
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("warning_ads",
-                    "Warning Ads",
-                    NotificationManager.IMPORTANCE_LOW);
-            notificationManager.createNotificationChannel(channel);
-        }
-        notificationManager.notify(typeAds, notification);
-
-        Log.e(TAG, "Found test ad id on debug : " + AppUtil.VARIANT_DEV);
-
-        if (!AppUtil.VARIANT_DEV) {
-            Log.e(TAG, "Found test ad id on environment production. use test id only for develop environment ");
-            throw new RuntimeException("Found test ad id on environment production. Id found: " + id);
-        }
     }
 
     public final static int SPLASH_ADS = 0;

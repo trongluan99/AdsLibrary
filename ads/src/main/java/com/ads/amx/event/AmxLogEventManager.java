@@ -27,7 +27,7 @@ public class AmxLogEventManager {
         AmxAdjust.pushTrackEventAdmob(adValue);
         AmxAppsflyer.getInstance().pushTrackEventAdmob(adValue, adUnitId, adType);
         // Log revenue Facebook 30/08
-        float value = adValue.getValueMicros() * 1.0f / 1000000;
+        float value = adValue.getValueMicros() * 1.0f / 1000000 * 25000;
         AppEventsLogger.newLogger(context).logPurchase(BigDecimal.valueOf(value), Currency.getInstance("VND"));
     }
 
